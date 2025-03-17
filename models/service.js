@@ -1,0 +1,45 @@
+'use strict';
+const { Model, DataTypes } = require('sequelize');
+
+module.exports = (sequelize) => {
+  class Service extends Model {
+    static associate(models) {
+        Service.hasMany(models.Command, {foreignKey: 'commandId'});
+        Service.belongsTo(models.Client, { foreignKey: 'clientId' });
+        Service.hasOne(models.InPlace, { foreignKey: 'serviceId' });
+        Service.hasOne(models.Delivery, { foreignKey: 'serviceId' });
+        Service.belongsToMany(models.Chef, { through: 'cookers'});
+    }
+  }
+
+  Service.init(
+    {
+      serviceId: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+        primaryKey: true,
+      },
+      bill: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      datetimeOpen: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      datetimeClose: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
+    },
+    {
+      sequelize,
+      modelName: "Service",
+      tableName: "services",
+      timestamps: true,
+    }
+  );
+
+  return Service;
+};
