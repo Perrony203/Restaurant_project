@@ -20,7 +20,7 @@ module.exports = (sequelize) => {
       sequelize,
       modelName: "DishIngredient",
       tableName: "dish_ingredient",
-      timestamps: true,
+      timestamps: false,
     }
   );
 

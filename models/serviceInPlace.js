@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
 
   ServiceInPlace.init(
     {
-      inPlaceId: {
+      serviceId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
@@ -24,7 +24,7 @@ module.exports = (sequelize) => {
       sequelize,
       modelName: "ServiceInPlace",
       tableName: "servicesInPlace",
-      timestamps: true,
+      timestamps: false,
     }
   );
 

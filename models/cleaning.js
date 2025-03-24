@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
 
   Cleaning.init(
     {
-        cleaningId: {
+        employeeId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
@@ -22,7 +22,7 @@ module.exports = (sequelize) => {
       sequelize,
       modelName: "Cleaning",
       tableName: "cleanings",
-      timestamps: true,
+      timestamps: false,
     }
   );
 

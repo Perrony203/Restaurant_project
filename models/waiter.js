@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
 
   Waiter.init(
     {
-        waiterId: {
+        employeeId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
@@ -22,7 +22,7 @@ module.exports = (sequelize) => {
       sequelize,
       modelName: "Waiter",
       tableName: "waiters",
-      timestamps: true,
+      timestamps: false,
     }
   );
 

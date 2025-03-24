@@ -5,7 +5,7 @@ module.exports = (sequelize) => {
   class ServiceDelivery extends Model {
     static associate(models) {
       ServiceDelivery.belongsTo(models.Service, { foreignKey: 'serviceId' });
-      ServiceDelivery.belongsTo(models.State, { foreignKey: 'stateId' });
+      ServiceDelivery.belongsTo(models.Status, { foreignKey: 'statusId' });
     }
   }
 
@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
       sequelize,
       modelName: "ServiceDelivery",
       tableName: "servicesDelivery",
-      timestamps: true,
+      timestamps: false,
     }
   );
 

@@ -2,32 +2,36 @@
 const { Model, DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  class Category extends Model {
+  class Table extends Model {
     static associate(models) {
-      Category.hasMany(models.Dish, { foreignKey: 'categoryId' });
+      Table.hasMany(models.ServiceInPlace, { foreignKey: 'serviceId' });
     }
   }
 
-  Category.init(
+  Table.init(
     {
-      categoryId: {
+      serviceId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
         primaryKey: true,
       },
-      name: {
+      number: {
         type: DataTypes.STRING,
+        allowNull: false,
+      },
+      vacancy: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
       },
     },
     {
       sequelize,
-      modelName: 'Category',
-      tableName: 'categories',
+      modelName: "Table",
+      tableName: "tables",
       timestamps: false,
     }
   );
 
-  return Category;
+  return Table;
 };

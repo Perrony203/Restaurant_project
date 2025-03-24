@@ -2,15 +2,15 @@
 const { Model, DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  class State extends Model {
+  class Status extends Model {
     static associate(models) {
-      State.hasMany(models.serviceDelivery, { foreignKey: 'StateId' });
+      Status.hasMany(models.serviceDelivery, { foreignKey: 'StatusId' });
     }
   }
 
-  State.init(
+  Status.init(
     {
-      StateId: {
+      StatusId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
@@ -20,14 +20,19 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW 
+      }
     },
     {
       sequelize,
-      modelName: 'State',
-      tableName: 'states',
+      modelName: 'Status',
+      tableName: 'status',
       timestamps: true,
     }
   );
 
-  return State;
+  return Status;
 };

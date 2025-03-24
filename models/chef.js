@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
 
   Chef.init(
     {
-        chefId: {
+        employeeId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
@@ -22,7 +22,7 @@ module.exports = (sequelize) => {
       sequelize,
       modelName: "Chef",
       tableName: "chefs",
-      timestamps: true,
+      timestamps: false,
     }
   );
 

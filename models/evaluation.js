@@ -9,8 +9,15 @@ module.exports = (sequelize) => {
   
     Evaluation.init(
       {
-        dateTime: {
+        createdAt: {
           type: DataTypes.DATE,
+          allowNull: false,
+          primaryKey: true,
+          defaultValue: DataTypes.NOW
+        },
+        clientId: {
+          type: DataTypes.UUID,
+          defaultValue: DataTypes.UUIDV4,
           allowNull: false,
           primaryKey: true,
         },

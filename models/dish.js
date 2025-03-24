@@ -25,13 +25,18 @@ module.exports = (sequelize) => {
           allowNull: true,
         },
         price: {
-          type: DataTypes.FLOAT,
+          type: DataTypes.INTEGER,
           allowNull: false,
         },
         preparationTime: {
           type: DataTypes.INTEGER,
           allowNull: false,
         },
+        updatedAt: {
+          type: DataTypes.DATE,
+          allowNull: false,
+          defaultValue: DataTypes.NOW 
+        }
       },
       {
         sequelize,
