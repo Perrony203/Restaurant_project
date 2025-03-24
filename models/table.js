@@ -11,9 +11,10 @@ module.exports = (sequelize) => {
   Table.init(
     {
       tableNumber: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,        
         primaryKey:true,
+        autoIncrement:true
       },
       vacancy: {
         type: DataTypes.BOOLEAN,

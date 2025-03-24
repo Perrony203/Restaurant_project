@@ -5,7 +5,7 @@ module.exports = (sequelize) => {
   class Chef extends Model {
     static associate(models) {
       Chef.belongsTo(models.Employee, { foreignKey: 'employeeId' });
-      Chef.belongsToMany(models.Service, { through: 'cookers' });
+      Chef.belongsToMany(models.Service, { through: 'cookerService', foreignKey: 'employeeId'});
     }
   }
 

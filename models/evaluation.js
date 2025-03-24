@@ -15,12 +15,6 @@ module.exports = (sequelize) => {
           primaryKey: true,
           defaultValue: DataTypes.NOW
         },
-        clientId: {
-          type: DataTypes.UUID,
-          defaultValue: DataTypes.UUIDV4,
-          allowNull: false,
-          primaryKey: true,
-        },
         food: {
           type: DataTypes.INTEGER,
           allowNull: false,
