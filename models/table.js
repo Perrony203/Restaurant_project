@@ -4,21 +4,16 @@ const { Model, DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   class Table extends Model {
     static associate(models) {
-      Table.hasMany(models.ServiceInPlace, { foreignKey: 'serviceId' });
+      Table.hasMany(models.ServiceInPlace, { foreignKey: 'tableNumber' });
     }
   }
 
   Table.init(
     {
-      serviceId: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
-        primaryKey: true,
-      },
-      number: {
+      tableNumber: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false,        
+        primaryKey:true,
       },
       vacancy: {
         type: DataTypes.BOOLEAN,

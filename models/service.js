@@ -6,8 +6,8 @@ module.exports = (sequelize) => {
     static associate(models) {
         Service.hasMany(models.Command, {foreignKey: 'commandId'});
         Service.belongsTo(models.Client, { foreignKey: 'clientId' });
-        Service.hasOne(models.InPlace, { foreignKey: 'serviceId' });
-        Service.hasOne(models.Delivery, { foreignKey: 'serviceId' });
+        Service.hasOne(models.ServiceInPlace, { foreignKey: 'serviceId' });
+        Service.hasOne(models.ServiceDelivery, { foreignKey: 'serviceId' });
         Service.belongsToMany(models.Chef, { through: 'cookers'});
     }
   }

@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
     {
       sequelize,
       modelName: "ShiftEmployee",
-      tableName: "shiftEmployees",
+      tableName: "contracts",
       timestamps: false,
     }
   );

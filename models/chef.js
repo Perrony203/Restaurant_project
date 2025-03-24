@@ -11,12 +11,12 @@ module.exports = (sequelize) => {
 
   Chef.init(
     {
-        employeeId: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
-        primaryKey: true,
-        },
+      employeeId: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
+      primaryKey: true,
+      },
     },
     {
       sequelize,

@@ -5,18 +5,18 @@ module.exports = (sequelize) => {
   class Waiter extends Model {
     static associate(models) {
       Waiter.belongsTo(models.Employee, { foreignKey: 'employeeId' });
-      Waiter.hasMany(models.ServiceInPlace, { foreignKey: 'waiterId' });
+      Waiter.hasMany(models.ServiceInPlace, { foreignKey: 'employeeId' });
     }
   }
 
   Waiter.init(
     {
-        employeeId: {
+      employeeId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
         primaryKey: true,
-        },
+      },
     },
     {
       sequelize,

@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
 
   ServiceDelivery.init(
     {
-      deliceryId: {
+      serviceId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
     {
       sequelize,
       modelName: "ServiceDelivery",
-      tableName: "servicesDelivery",
+      tableName: "deliveryServices",
       timestamps: false,
     }
   );
