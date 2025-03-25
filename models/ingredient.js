@@ -1,4 +1,5 @@
-const { DataTypes } = require("sequelize");
+'use strict';
+const { Model, DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
     class Ingredient extends Model {

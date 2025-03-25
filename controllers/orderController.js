@@ -4,7 +4,7 @@ const { Command } = require('../models');
 exports.getAllOrders = async (req, res) => {
     try {
         const orders = await Command.findAll();
-        res.status(200).json(orders);
+        return res.status(200).json(orders);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -16,7 +16,7 @@ exports.getOrderById = async (req, res) => {
         const { id } = req.params;
         const order = await Command.findByPk(id);
         if (!order) return res.status(404).json({ message: 'Pedido no encontrado' });
-        res.status(200).json(order);
+        return res.status(200).json(order);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

@@ -9,7 +9,7 @@ module.exports = (sequelize) => {
     }
   }
 
-  CommandInPlace.init(
+  Command.init(
     {
       commandId: {
         type: DataTypes.UUID,

@@ -1,3 +1,6 @@
+'use strict';
+const { Model, DataTypes } = require('sequelize');
+
 module.exports = (sequelize) => {
     class Dish extends Model {
       static associate(models) {
