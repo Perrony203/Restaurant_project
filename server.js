@@ -1,10 +1,30 @@
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const helmet = require("helmet");
+const morgan = require("morgan");
+const bodyParser = require("body-parser");
+
+
+const app = express();
+
+//Middlewares
 app.use(cors());
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 
-// app.use("/api/usuarios", usuarioRoutes);
-// app.use("/api/auth", authRoutes);
+const employeeRoutes = require("./routes/employeeRoutes");
+const inventoryRoutes = require("./routes/inventoryRoutes");
+const menuRoutes = require("./routes/menuRoutes");
+const orderRoutes = require("./routes/orderRoutes");
+const salesRoutes = require("./routes/salesRoutes");
+
+app.use("/employees", employeeRoutes);
+app.use("/inventory", inventoryRoutes);
+app.use("/menu", menuRoutes);
+app.use("/orders", orderRoutes);
+app.use("/sales", salesRoutes);
 
 const PORT = process.env.DB_PORT || 3000;
 
