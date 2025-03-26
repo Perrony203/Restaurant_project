@@ -1,7 +1,7 @@
 const { Contract } = require('../models');
 
 const contractController = {
-    async getAllContracts(req, res) {
+    getAllContracts:async(req, res) => {
         try {
             const contracts = await Contract.findAll();
             res.json(contracts);
@@ -10,7 +10,7 @@ const contractController = {
         }
     },
 
-    async getContractByShift(req, res) {
+    getContractByShift:async(req, res) => {
         try {
             const { shiftId } = req.params;
             const contracts = await Contract.findAll({ where: { shiftId } });
@@ -20,7 +20,7 @@ const contractController = {
         }
     },
 
-    async createContract(req, res)  {
+    createContract:async(req, res) =>  {
         try {
             const { shiftId, employeeId, payments } = req.body;
     
@@ -37,7 +37,7 @@ const contractController = {
         }
     },
 
-    async getContractByEmployee(req, res) {
+    getContractByEmployee:async(req, res) => {
         try {
             const { employeeId } = req.params;
             const contracts = await Contract.findAll({ where: { employeeId } });
@@ -47,7 +47,7 @@ const contractController = {
         }
     },
 
-    async updateContract(req, res) {
+    updateContract:async(req, res) => {
         try {
             const { id } = req.params;
             const [updated] = await Contract.update(req.body, { where: { id } });
@@ -61,7 +61,7 @@ const contractController = {
         }
     },
 
-    async deleteContract(req, res) {
+    deleteContract:async(req, res) => {
         try {
             const { id } = req.params;
             const deleted = await Contract.destroy({ where: { id } });
@@ -73,15 +73,6 @@ const contractController = {
             res.status(500).json({ error: error.message });
         }
     },
-
-    async createContract(req, res) {
-        try {
-            const contract = await Contract.create(req.body);
-            res.status(201).json(contract);
-        } catch (error) {
-            res.status(500).json({ error: error.message });
-        }
-    }
 };
 
 module.exports = contractController;

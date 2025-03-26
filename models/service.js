@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
         Service.belongsTo(models.Client, { foreignKey: 'clientId' });
         Service.hasOne(models.ServiceInPlace, { foreignKey: 'serviceId' });
         Service.hasOne(models.ServiceDelivery, { foreignKey: 'serviceId' });
-        Service.belongsToMany(models.Chef, { through: 'cookerService', foreignKey: 'serviceId'});
+        Service.hasMany(models.CookerService, {foreignKey: 'serviceId'});
     }
   }
 

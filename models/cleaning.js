@@ -5,7 +5,7 @@ module.exports = (sequelize) => {
   class Cleaning extends Model {
     static associate(models) {
       Cleaning.belongsTo(models.Employee, { foreignKey: 'employeeId' });
-      Cleaning.belongsToMany(models.ServiceInPlace, { through: 'cleanerServices', foreignKey: 'employeeId'});
+      Cleaning.hasMany(models.CleanerService, { foreignKey: 'employeeId'});
     }
   }
 

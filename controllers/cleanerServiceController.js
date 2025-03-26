@@ -2,7 +2,7 @@ const CleanerService = require("../models/cleanerService");
 
 // Controller for CleanerService
 const cleanerServiceController = {
-    async getAll(req, res) {
+    getAll:async(req, res) => {
         try {
             const cleanerServices = await CleanerService.findAll();
             res.json(cleanerServices);
@@ -10,7 +10,7 @@ const cleanerServiceController = {
             res.status(500).json({ error: error.message });
         }
     },
-    async getByService(req, res) {
+    getByService:async(req, res) => {
         try {
             const { serviceId } = req.params;
             const cleanerServices = await CleanerService.findAll({ where: { serviceId } });
@@ -19,7 +19,7 @@ const cleanerServiceController = {
             res.status(500).json({ error: error.message });
         }
     },
-    async getByCleaner(req, res) {
+    getByCleaner:async(req, res) => {
         try {
             const { cleanerId } = req.params;
             const cleanerServices = await CleanerService.findAll({ where: { cleanerId } });
@@ -28,7 +28,7 @@ const cleanerServiceController = {
             res.status(500).json({ error: error.message });
         }
     },
-    async create(req, res) {
+    create:async(req, res) => {
         try {
             const newCleanerService = await CleanerService.create(req.body);
             res.status(201).json(newCleanerService);
@@ -36,7 +36,7 @@ const cleanerServiceController = {
             res.status(500).json({ error: error.message });
         }
     },
-    async delete(req, res) {
+    delete:async(req, res) => {
         try {
             const { id } = req.params;
             await CleanerService.destroy({ where: { id } });
@@ -47,4 +47,4 @@ const cleanerServiceController = {
     }
 };
 
-module.exports = { cleanerServiceController };
+module.exports = cleanerServiceController;

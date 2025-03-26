@@ -2,7 +2,7 @@ const CookerService = require("../models");
 
 
 const cookerServiceController = {
-    async getAll(req, res) {
+    getAll:async(req, res) => {
         try {
             const cookerServices = await CookerService.findAll();
             res.json(cookerServices);
@@ -10,7 +10,7 @@ const cookerServiceController = {
             res.status(500).json({ error: error.message });
         }
     },
-    async getByService(req, res) {
+    getByService:async(req, res) => {
         try {
             const { serviceId } = req.params;
             const cookerServices = await CookerService.findAll({ where: { serviceId } });
@@ -19,7 +19,7 @@ const cookerServiceController = {
             res.status(500).json({ error: error.message });
         }
     },
-    async getByCooker(req, res) {
+    getByCooker:async(req, res) => {
         try {
             const { cookerId } = req.params;
             const cookerServices = await CookerService.findAll({ where: { cookerId } });
@@ -28,7 +28,7 @@ const cookerServiceController = {
             res.status(500).json({ error: error.message });
         }
     },
-    async create(req, res) {
+    create:async(req, res) => {
         try {
             const newCookerService = await CookerService.create(req.body);
             res.status(201).json(newCookerService);
@@ -36,7 +36,7 @@ const cookerServiceController = {
             res.status(500).json({ error: error.message });
         }
     },
-    async delete(req, res) {
+    delete:async(req, res) => {
         try {
             const { id } = req.params;
             await CookerService.destroy({ where: { id } });
@@ -47,4 +47,4 @@ const cookerServiceController = {
     }
 };
 
-module.exports = { cleanerServiceController, cookerServiceController };
+module.exports = cookerServiceController;
