@@ -1,28 +1,35 @@
-const { Employee } = require('../models'); 
+const { Employee } = require('../models');
 
-const employeeController = {
-    // Obtener todos los empleados
-    getAllEmployees:async (req, res) => {
-        try {
-            const employees = await Employee.findAll();
-            return res.status(200).json(employees);
-        } catch (error) {
-            res.status(500).json({ error: error.message });
+exports.getAllEmployees = async (req, res) => {
+    try {
+        const employees = await Employee.findAll();
+        res.json(employees);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.getEmployeeByDocumentType = async (req, res) => {
+    try {
+        const { documentType } = req.params;
+        const employees = await Employee.findAll({ where: { documentType } });
+        res.json(employees);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.createEmployee = async (req, res) => {
+    try {
+        const { idType, name, phoneNumber } = req.body;
+
+        if (!idType || !name) {
+            return res.status(400).json({ message: 'Los campos idType y name son obligatorios' });
         }
-    },
 
-    // Obtener un empleado por ID
-    getEmployeeById:async (req, res) => {
-        try {
-            const { id } = req.params;
-            const employee = await Employee.findByPk(id);
-            if (!employee) return res.status(404).json({ message: 'Empleado no encontrado' });
-            return res.status(200).json(employee);
-        } catch (error) {
-            res.status(500).json({ error: error.message });
-        }
-    },
+        const newEmployee = await Employee.create({ idType, name, phoneNumber });
 
+<<<<<<< HEAD
     // Crear un nuevo empleado
     createEmployee:async (req, res) => {
         try {
@@ -36,33 +43,32 @@ const employeeController = {
             res.status(500).json({ error: error.message });
         }
     },
+=======
+        return res.status(201).json(newEmployee);
+    } catch (error) {
+        console.error('Error al crear el empleado:', error);
+        return res.status(500).json({ message: 'Error interno del servidor' });
+    }
+};
+>>>>>>> 7df3f2b19374d790048366ee1d26f6e8bd3705c0
 
-    // Actualizar un empleado
-    updateEmployee:async (req, res) => {
-        try {
-            const { id } = req.params;
-            const { name, idType, phoneNumber } = req.body;
-            const employee = await Employee.findByPk(id);
-            if (!employee) return res.status(404).json({ message: 'Empleado no encontrado' });
-            await employee.update({ name, idType, phoneNumber });
-            return res.status(200).json(employee);
-        } catch (error) {
-            res.status(500).json({ error: error.message });
-        }
-    },
+exports.updateEmployee = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const [updated] = await Employee.update(req.body, { where: { id } });
+        updated ? res.json({ message: 'Employee updated' }) : res.status(404).json({ error: 'Employee not found' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 
-    // Eliminar un empleado
-    deleteEmployee:async (req, res) => {
-        try {
-            const { id } = req.params;
-            const employee = await Employee.findByPk(id);
-            if (!employee) return res.status(404).json({ message: 'Empleado no encontrado' });
-            await employee.destroy();
-            return res.status(204).send();
-        } catch (error) {
-            res.status(500).json({ error: error.message });
-        }
-    },
-}
+exports.deleteEmployee = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deleted = await Employee.destroy({ where: { id } });
+        deleted ? res.json({ message: 'Employee deleted' }) : res.status(404).json({ error: 'Employee not found' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 
-module.exports = employeeController;
