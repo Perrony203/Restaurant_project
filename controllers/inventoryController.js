@@ -28,7 +28,7 @@ const inventoryController = {
         try {
             const { name, stock, stockUnits, supplierId } = req.body;
             const newIngredient = await Ingredient.create({ name, stock, stockUnits, supplierId });
-            res.status(201).json(newIngredient);
+            return res.status(201).json(newIngredient);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -42,7 +42,7 @@ const inventoryController = {
             const ingredient = await Ingredient.findByPk(id);
             if (!ingredient) return res.status(404).json({ message: 'Ingrediente no encontrado' });
             await ingredient.update({ name, stock, stockUnits, supplierId });
-            res.status(200).json(ingredient);
+            return res.status(200).json(ingredient);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -55,7 +55,7 @@ const inventoryController = {
             const ingredient = await Ingredient.findByPk(id);
             if (!ingredient) return res.status(404).json({ message: 'Ingrediente no encontrado' });
             await ingredient.destroy();
-            res.status(204).send();
+            return res.status(204).send();
         } catch (error) {
             res.status(500).json({ error: error.message });
         }

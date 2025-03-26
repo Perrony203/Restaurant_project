@@ -5,7 +5,7 @@ const salesController = {
     getAllSales:async (req, res) => {
         try {
             const sales = await Sale.findAll();
-            res.status(200).json(sales);
+            return res.status(200).json(sales);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -17,7 +17,7 @@ const salesController = {
             const { id } = req.params;
             const sale = await Sale.findByPk(id);
             if (!sale) return res.status(404).json({ message: 'Venta no encontrada' });
-            res.status(200).json(sale);
+            return res.status(200).json(sale);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -28,7 +28,7 @@ const salesController = {
         try {
             const { serviceId, total, paymentMethod } = req.body;
             const newSale = await Sale.create({ serviceId, total, paymentMethod });
-            res.status(201).json(newSale);
+            return res.status(201).json(newSale);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -42,7 +42,7 @@ const salesController = {
             const sale = await Sale.findByPk(id);
             if (!sale) return res.status(404).json({ message: 'Venta no encontrada' });
             await sale.update({ serviceId, total, paymentMethod });
-            res.status(200).json(sale);
+            return res.status(200).json(sale);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -55,7 +55,7 @@ const salesController = {
             const sale = await Sale.findByPk(id);
             if (!sale) return res.status(404).json({ message: 'Venta no encontrada' });
             await sale.destroy();
-            res.status(204).send();
+            return res.status(204).send();
         } catch (error) {
             res.status(500).json({ error: error.message });
         }

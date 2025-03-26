@@ -22,16 +22,11 @@ const menuRoutes = require("./routes/menuRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const salesRoutes = require("./routes/salesRoutes");
 
-app.use("/employees", employeeRoutes);
-app.use("/inventory", inventoryRoutes);
-app.use("/menu", menuRoutes);
-app.use("/orders", orderRoutes);
-app.use("/sales", salesRoutes);
-
-// app.use("/api/usuarios", usuarioRoutes);
-// app.use("/api/auth", authRoutes);
-// app.use("api/pedidos", pedidoRoutes);
-
+app.use("/restaurant/employees", employeeRoutes);
+app.use("/restaurant/inventory", inventoryRoutes);
+app.use("/restaurant/menu", menuRoutes);
+app.use("/restaurant/orders", orderRoutes);
+app.use("/restaurant/sales", salesRoutes);
 
 const PORT = process.env.DB_PORT || 3000;
 

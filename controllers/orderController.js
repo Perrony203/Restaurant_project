@@ -28,7 +28,7 @@ const orderController = {
         try {
             const { serviceId, dishId, datetimeOpen } = req.body;
             const newOrder = await Command.create({ serviceId, dishId, datetimeOpen });
-            res.status(201).json(newOrder);
+            return res.status(201).json(newOrder);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -42,7 +42,7 @@ const orderController = {
             const order = await Command.findByPk(id);
             if (!order) return res.status(404).json({ message: 'Pedido no encontrado' });
             await order.update({ serviceId, dishId, datetimeClose });
-            res.status(200).json(order);
+            return res.status(200).json(order);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -55,7 +55,7 @@ const orderController = {
             const order = await Command.findByPk(id);
             if (!order) return res.status(404).json({ message: 'Pedido no encontrado' });
             await order.destroy();
-            res.status(204).send();
+            return res.status(204).send();
         } catch (error) {
             res.status(500).json({ error: error.message });
         }

@@ -5,7 +5,7 @@ const employeeController = {
     getAllEmployees:async (req, res) => {
         try {
             const employees = await Employee.findAll();
-            res.status(200).json(employees);
+            return res.status(200).json(employees);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -17,7 +17,7 @@ const employeeController = {
             const { id } = req.params;
             const employee = await Employee.findByPk(id);
             if (!employee) return res.status(404).json({ message: 'Empleado no encontrado' });
-            res.status(200).json(employee);
+            return res.status(200).json(employee);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -28,7 +28,7 @@ const employeeController = {
         try {
             const { name, idType, phoneNumber } = req.body;
             const newEmployee = await Employee.create({ name, idType, phoneNumber });
-            res.status(201).json(newEmployee);
+            return res.status(201).json(newEmployee);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -42,7 +42,7 @@ const employeeController = {
             const employee = await Employee.findByPk(id);
             if (!employee) return res.status(404).json({ message: 'Empleado no encontrado' });
             await employee.update({ name, idType, phoneNumber });
-            res.status(200).json(employee);
+            return res.status(200).json(employee);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -55,7 +55,7 @@ const employeeController = {
             const employee = await Employee.findByPk(id);
             if (!employee) return res.status(404).json({ message: 'Empleado no encontrado' });
             await employee.destroy();
-            res.status(204).send();
+            return res.status(204).send();
         } catch (error) {
             res.status(500).json({ error: error.message });
         }

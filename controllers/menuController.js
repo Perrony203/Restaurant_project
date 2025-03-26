@@ -28,7 +28,7 @@ const menuController = {
         try {
             const { name, description, price, preparationTime, categoryId } = req.body;
             const newDish = await Dish.create({ name, description, price, preparationTime, categoryId });
-            res.status(201).json(newDish);
+            return res.status(201).json(newDish);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -42,7 +42,7 @@ const menuController = {
             const dish = await Dish.findByPk(id);
             if (!dish) return res.status(404).json({ message: 'Plato no encontrado' });
             await dish.update({ name, description, price, preparationTime, categoryId });
-            res.status(200).json(dish);
+            return res.status(200).json(dish);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -55,7 +55,7 @@ const menuController = {
             const dish = await Dish.findByPk(id);
             if (!dish) return res.status(404).json({ message: 'Plato no encontrado' });
             await dish.destroy();
-            res.status(204).send();
+            return res.status(204).send();
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
