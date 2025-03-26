@@ -17,8 +17,7 @@ module.exports = {
     });
     await queryInterface.createTable("employees", {
       employeeId: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        type: Sequelize.STRING,
         allowNull: false,
         primaryKey: true,
       },
@@ -47,8 +46,7 @@ module.exports = {
     });
     await queryInterface.createTable("clients", {
       clientId: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        type: Sequelize.STRING,
         allowNull: false,
         primaryKey: true,
       },
@@ -138,7 +136,7 @@ module.exports = {
     });
     await queryInterface.createTable("waiters", {
       employeeId: {
-        type: Sequelize.UUID,
+        type: Sequelize.STRING,
         allowNull: false,
         primaryKey: true,
         references: {
@@ -159,7 +157,7 @@ module.exports = {
       supplierId: {
         type: Sequelize.UUID,
         allowNull: false,
-        primaryKey: true,
+        primaryKey: false,
         references: {
           model: 'suppliers',
           key: 'supplierId',
@@ -197,9 +195,8 @@ module.exports = {
         primaryKey: true,
       },
       clientId: {
-        type: Sequelize.UUID,
+        type: Sequelize.STRING,
         allowNull: false,
-        primaryKey: true,
         references: {
           model: 'clients',
           key: 'clientId',
@@ -223,7 +220,7 @@ module.exports = {
     });
     await queryInterface.createTable("chefs", {
       employeeId: {
-        type: Sequelize.UUID,
+        type: Sequelize.STRING,
         allowNull: false,
         primaryKey: true,
         references: {
@@ -236,7 +233,7 @@ module.exports = {
     });
     await queryInterface.createTable("cleanings", {
       employeeId: {
-        type: Sequelize.UUID,
+        type: Sequelize.STRING,
         allowNull: false,
         primaryKey: true,
         references: {
@@ -305,14 +302,7 @@ module.exports = {
         allowNull: false,
       },
     });
-    await queryInterface.createTable("commands", {
-      commandId: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
-        allowNull: false,
-        primaryKey: true,
-        
-      },
+    await queryInterface.createTable("commands", {      
       serviceId: {
         type: Sequelize.UUID,
         allowNull: false,
@@ -338,6 +328,7 @@ module.exports = {
       datetimeOpen: {
         type: Sequelize.DATE,
         allowNull: false,
+        primaryKey: true,
         defaultValue: Sequelize.NOW,
       },
       datetimeClose: {
@@ -381,7 +372,7 @@ module.exports = {
         defaultValue: Sequelize.NOW
       },
       clientId: {
-        type: Sequelize.UUID,
+        type: Sequelize.STRING,
         allowNull: false,
         primaryKey: true,
         references: {
@@ -407,7 +398,6 @@ module.exports = {
     await queryInterface.createTable("deliveryServices", {
       serviceId: {
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
         primaryKey: true,
         references: {
@@ -420,7 +410,6 @@ module.exports = {
       statusId: {
         type: Sequelize.UUID,
         allowNull: false,
-        primaryKey: true,
         references: {
           model: 'statuses',
           key: 'statusId',
@@ -436,7 +425,6 @@ module.exports = {
     await queryInterface.createTable("inPlaceServices", {
       serviceId: {
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
         primaryKey: true,
         references: {
@@ -449,7 +437,6 @@ module.exports = {
       tableNumber: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        primaryKey: true,
         references: {
           model: 'tables',
           key: 'tableNumber',
@@ -458,9 +445,8 @@ module.exports = {
         onDelete: 'NO ACTION', 
       },
       waiterId: {
-        type: Sequelize.UUID,
+        type: Sequelize.STRING,
         allowNull: false,
-        primaryKey: true,
         references: {
           model: 'waiters',
           key: 'employeeId',
@@ -472,7 +458,7 @@ module.exports = {
     });    
     await queryInterface.createTable("contracts", {
       employeeId: {
-        type: Sequelize.UUID,
+        type: Sequelize.STRING,
         allowNull: false,
         primaryKey: true,
         references: {
@@ -500,7 +486,7 @@ module.exports = {
     });    
     await queryInterface.createTable("cleanerServices", {
       cleanerId: {
-        type: Sequelize.UUID,
+        type: Sequelize.STRING,
         allowNull: false,
         primaryKey: true,
         references: {
@@ -524,7 +510,7 @@ module.exports = {
     });
     await queryInterface.createTable("cookerServices", {
       cookerId: {
-        type: Sequelize.UUID,
+        type: Sequelize.STRING,
         allowNull: false,
         primaryKey: true,
         references: {

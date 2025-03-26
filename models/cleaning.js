@@ -12,8 +12,7 @@ module.exports = (sequelize) => {
   Cleaning.init(
     {
       employeeId: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.STRING,
       allowNull: false,
       primaryKey: true,
       },

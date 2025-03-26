@@ -27,6 +27,9 @@ const employeeController = {
     createEmployee:async (req, res) => {
         try {
             const { name, idType, phoneNumber } = req.body;
+            if(!name || !idType || !phoneNumber){
+                return res.status(404).json({error: "Parámetros incompletos"}) 
+            }
             const newEmployee = await Employee.create({ name, idType, phoneNumber });
             return res.status(201).json(newEmployee);
         } catch (error) {
