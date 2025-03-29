@@ -26,6 +26,16 @@ const supplierController = {
             res.status(400).json({ error: error.message });
         }
     },
+    getAllSuppliers: async (req, res) => {
+        try {
+            const suppliers = await Supplier.findAll();
+            res.status(200).json(suppliers);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+    },
+    
+    
 
     getSupplierById :async (req, res) => {
         try {

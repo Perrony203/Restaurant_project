@@ -1,14 +1,29 @@
 const Client = require("../models/client");
 
 const clientController = {
-    addClient :async (req, res) => {
+    createClient: async (req, res) => {
         try {
-            const client = await Client.create(req.body);
-            res.status(201).json(client);
+          const { clientId, idType, name, phoneNumber } = req.body;
+      
+          const newClient = await Client.create({
+            clientId,
+            idType,
+            name,
+            phoneNumber,
+          });
+      
+          return res.status(201).json({
+            message: "Cliente creado exitosamente",
+            client: newClient,
+          });
         } catch (error) {
-            res.status(400).json({ error: error.message });
+          console.error("Error al crear el cliente:", error);
+          return res.status(500).json({
+            message: "Error interno del servidor al crear el cliente",
+            error: error.message,
+          });
         }
-    },
+      },
 
     getClients :async (req, res) => {
         try {

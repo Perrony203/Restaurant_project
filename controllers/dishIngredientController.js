@@ -36,6 +36,16 @@ const DishIngredient = require("../models/dishIngredient");
             res.status(400).json({ error: error.message });
         }
     },
+    getAllDishIngredients: async (req, res) => {
+        try {
+            const dishIngredients = await DishIngredient.findAll();
+            res.status(200).json(dishIngredients);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+    }
+
 }
+
 
 module.exports = dishIngredientController;

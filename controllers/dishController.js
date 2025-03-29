@@ -1,6 +1,16 @@
 const Dish = require("../models/dish");
 
 const dishController = {
+
+    getAllDishes: async (req, res) => {
+        try {
+            const dishes = await Dish.findAll();
+            res.status(200).json(dishes);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+    },
+    
     getDishById :async (req, res) => {
         try {
             const dish = await Dish.findByPk(req.params.id);

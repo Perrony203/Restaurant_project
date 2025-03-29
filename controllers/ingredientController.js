@@ -42,6 +42,14 @@ const ingedientController = {
             res.status(400).json({ error: error.message });
         }
     },
+    getAllIngredients: async (req, res) => {
+        try {
+            const ingredients = await Ingredient.findAll();
+            res.status(200).json(ingredients);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+    },
 
     getIngredientById :async (req, res) => {
         try {

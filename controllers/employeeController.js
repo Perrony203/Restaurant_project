@@ -19,6 +19,31 @@ const employeeController = {
             res.status(500).json({ error: error.message });
         }
     },
+    getEmployeeById: async (req, res) => {
+        try {
+          const { employeeId } = req.params;
+      
+          const employee = await Employee.findByPk(employeeId, {
+            include: [
+              { all: true, nested: true }
+            ],
+          });
+      
+          if (!employee) {
+            return res.status(404).json({
+              message: "Empleado no encontrado",
+            });
+          }
+      
+          return res.status(200).json(employee);
+        } catch (error) {
+          console.error("Error al obtener empleado:", error);
+          return res.status(500).json({
+            message: "Error interno del servidor al obtener empleado",
+            error: error.message,
+          });
+        }
+      },
 
     // Crear un nuevo empleado
     createEmployee:async (req, res) => {
