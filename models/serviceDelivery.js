@@ -5,7 +5,7 @@ module.exports = (sequelize) => {
   class ServiceDelivery extends Model {
     static associate(models) {
       ServiceDelivery.belongsTo(models.Service, { foreignKey: 'serviceId' });
-      ServiceDelivery.belongsTo(models.Status, { foreignKey: 'statusId' });
+      ServiceDelivery.belongsTo(models.Status, { foreignKey: 'StatusId' });
     }
   }
 
@@ -20,6 +20,14 @@ module.exports = (sequelize) => {
       Code: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      StatusId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        references: {
+          model: 'Status',
+          key: 'id',
+        },
       },
     },
     {

@@ -12,12 +12,11 @@ const serviceController = {
 
     createService :async (req, res) => {
         try {
-            const { clientId, bill, datetimeOpen, datetimeClose, chefIds } = req.body;
+            const { clientId, bill, datetimeClose, chefIds } = req.body;
 
             const newService = await Service.create({
                 clientId,
                 bill,
-                datetimeOpen,
                 datetimeClose
             });
 

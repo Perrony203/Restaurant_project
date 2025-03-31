@@ -16,7 +16,8 @@ const {DishIngredient} = require("../../models");
             res.status(400).json({ error: error.message });
         }
     },
-
+    // cambiar eventualmente la creacion por id a por name
+    
     updateQuantityNeeded :async (req, res) => {
         try {
             const { id } = req.params;

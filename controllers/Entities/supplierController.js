@@ -5,6 +5,10 @@ const supplierController = {
         try {
             const { name, phoneNumber } = req.body;
 
+            if (!name || !phoneNumber) {
+                return res.status(400).json({ error: "Name and phone number are required" });
+            }
+
             const newSupplier = await Supplier.create({
                 name,
                 phoneNumber
@@ -20,6 +24,15 @@ const supplierController = {
         try {
             const { id } = req.params;
             const { number } = req.body;
+
+            if (!id) {
+                return res.status(400).json({ error: "ID is required" });
+            }
+            if (!number) {
+                return res.status(400).json({ error: "Number is required" });
+            }
+            
+
             await Supplier.update({ number }, { where: { id } });
             res.status(200).json({ message: "Supplier updated" });
         } catch (error) {

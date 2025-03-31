@@ -13,7 +13,9 @@ const commandController = {
     createCommand :async (req, res) => {
         try {
             const { serviceId, dishId, datetimeOpen, datetimeClose } = req.body;
-
+            if (!serviceId || !dishId) {
+                return res.status(400).json({ error: "Service ID and Dish ID are required" });
+            }
             const command = await Command.create({
                 serviceId,
                 dishId,
@@ -27,11 +29,21 @@ const commandController = {
         }
     },
 
+    
     updateCommand :async (req, res) => {
         try {
-            const { id } = req.params;
-            await Command.update(req.body, { where: { id } });
-            res.status(200).json({ message: "Command updated" });
+            const { serviceId, dishId, datetimeOpen, datetimeClose } = req.body;
+            const command = await Command.findByPk(req.params.id);
+            if (!command) {
+                return res.status(404).json({ error: "Command not found" });
+            }
+            if(serviceId)command.serviceId = serviceId || command.serviceId;
+            if(dishId)command.dishId = dishId || command.dishId;
+            if(datetimeOpen)command.datetimeOpen = datetimeOpen || command.datetimeOpen;
+            if(datetimeClose)command.datetimeClose = datetimeClose || command.datetimeClose;
+
+            await command.save();
+            res.json(command);
         } catch (error) {
             res.status(400).json({ error: error.message });
         }

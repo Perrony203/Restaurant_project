@@ -1,4 +1,8 @@
+<<<<<<< HEAD:controllers/Entities/evaluationController.js
 const {Evaluation} = require("../../models");
+=======
+const {Evaluation, Client} = require("../models");
+>>>>>>> Dev:controllers/evaluationController.js
 
 const evaluationController = {
     getEvaluations :async (req, res) => {
@@ -12,10 +16,15 @@ const evaluationController = {
 
     createEvaluation :async (req, res) => {
         try {
-            const { clientId, food, service, cleaning } = req.body;
+            const { clientName, food, service, cleaning } = req.body;
+
+            const client = await Client.findOne({ where: { name: clientName } });
+            if (!client) {
+                return res.status(404).json({ error: "Client not found" });
+            }
 
             const evaluation = await Evaluation.create({
-                clientId,
+                clientId: client.clientId,
                 food,
                 service,
                 cleaning

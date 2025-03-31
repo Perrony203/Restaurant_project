@@ -14,6 +14,10 @@ const {DeliveryService} = require("../../models");
         try {
             const { serviceId, code, statusId } = req.body;
 
+            if (!serviceId || !code || !statusId) {
+                return res.status(400).json({ error: "Missing required fields" });
+            }
+
             const serviceDelivery = await ServiceDelivery.create({
                 serviceId,
                 code,
