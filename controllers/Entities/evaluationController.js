@@ -1,8 +1,5 @@
-<<<<<<< HEAD:controllers/Entities/evaluationController.js
 const {Evaluation} = require("../../models");
-=======
-const {Evaluation, Client} = require("../models");
->>>>>>> Dev:controllers/evaluationController.js
+
 
 const evaluationController = {
     getEvaluations :async (req, res) => {
@@ -38,3 +35,4 @@ const evaluationController = {
 }
 
 module.exports = evaluationController;
+
