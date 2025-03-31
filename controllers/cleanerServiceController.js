@@ -21,8 +21,14 @@ const cleanerServiceController = {
     },
     getByCleaner:async(req, res) => {
         try {
-            const { cleanerId } = req.params;
-            const cleanerServices = await CleanerService.findAll({ where: { cleanerId } });
+            const { employeeName } = req.params;
+            const employee = await Employee.findOne({ where: { name: employeeName } });
+
+            if (!employee) {    
+                return res.status(404).json({ error: "Employee not found" });
+            }
+            const cleanerServices = await CleanerService.findAll({ where: { employeeId: employee.id } });
+
             res.json(cleanerServices);
         } catch (error) {
             res.status(500).json({ error: error.message });
