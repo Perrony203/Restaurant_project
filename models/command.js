@@ -9,16 +9,11 @@ module.exports = (sequelize) => {
     }
   }
 
-  CommandInPlace.init(
+  Command.init(
     {
-      commandId: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
-        primaryKey: true,
-      },
       datetimeOpen: {
         type: DataTypes.DATE,
+        primaryKey: true,
         allowNull: false,
         defaultValue: DataTypes.NOW,
       },

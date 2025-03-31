@@ -5,15 +5,14 @@ module.exports = (sequelize) => {
   class Cleaning extends Model {
     static associate(models) {
       Cleaning.belongsTo(models.Employee, { foreignKey: 'employeeId' });
-      Cleaning.belongsToMany(models.SserviceInPlace, { through: 'cleanerServices', foreignKey: 'employeeId'});
+      Cleaning.hasMany(models.CleanerService, { foreignKey: 'employeeId'});
     }
   }
 
   Cleaning.init(
     {
       employeeId: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.STRING,
       allowNull: false,
       primaryKey: true,
       },

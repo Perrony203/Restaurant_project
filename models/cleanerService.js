@@ -2,37 +2,34 @@
 const { Model, DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  class Status extends Model {
+  class CleanerService extends Model {
     static associate(models) {
-      Status.hasMany(models.ServiceDelivery, { foreignKey: 'StatusId' });
+      CleanerService.belongsTo(models.ServiceInPlace, { foreignKey: 'serviceId' });
+      CleanerService.belongsTo(models.Cleaning, { foreignKey: 'employeeId' });
     }
   }
 
-  Status.init(
+  CleanerService.init(
     {
-      StatusId: {
+      serviceId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
         primaryKey: true,
       },
-      description: {
+      employeeId: {
         type: DataTypes.STRING,
         allowNull: false,
+        primaryKey: true,
       },
-      updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW 
-      }
     },
     {
       sequelize,
-      modelName: 'Status',
-      tableName: 'statuses',
+      modelName: "CleanerService",
+      tableName: "cleanerServices",
       timestamps: true,
     }
   );
 
-  return Status;
+  return CleanerService;
 };

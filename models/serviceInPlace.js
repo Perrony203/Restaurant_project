@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
       ServiceInPlace.belongsTo(models.Service, { foreignKey: 'serviceId' });
       ServiceInPlace.belongsTo(models.Table, { foreignKey: 'tableNumber' });
       ServiceInPlace.belongsTo(models.Waiter, { foreignKey: 'waiterId' });
-      ServiceInPlace.belongsToMany(models.Cleaning, { through: 'cleanerServices', foreignKey: 'serviceId'});
+      ServiceInPlace.hasMany(models.CleanerService, {foreignKey: 'serviceId'});
     }
   }
 

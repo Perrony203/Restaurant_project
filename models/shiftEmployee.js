@@ -12,8 +12,7 @@ module.exports = (sequelize) => {
   ShiftEmployee.init(
     {
       ShiftEmployeeId: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
       },
