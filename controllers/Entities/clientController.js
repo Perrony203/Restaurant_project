@@ -61,12 +61,11 @@ const clientController = {
 
     updateClient :async (req, res) => {
         try {
-<<<<<<< HEAD:controllers/Entities/clientController.js
             const { id } = req.params;
             
             await Client.update(req.body, { where: { id } });
             res.status(200).json({ message: "Client updated" });
-=======
+
             const { clientId, idType, name, phoneNumber } = req.body;
             const client = await Client.findByPk(req.params.id);
             
@@ -79,7 +78,7 @@ const clientController = {
             
             await client.save();
             res.json(client);
->>>>>>> Dev:controllers/clientController.js
+
         } catch (error) {
             res.status(400).json({ error: error.message });
         }
@@ -96,3 +95,4 @@ const clientController = {
 }
 
 module.exports = clientController;
+
