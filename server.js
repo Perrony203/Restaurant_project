@@ -15,28 +15,33 @@ app.use(helmet());
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 
-const categoryRoutes = require("./routes/categoryRoutes");
-const chefRoutes = require("./routes/chefRoutes");
-const cleanerServiceRoutes = require("./routes/cleanerServiceRoutes");
-const cleaningRoutes = require("./routes/cleaningRoutes");
-const clientRoutes = require("./routes/clientRoutes");
-const commandRoutes = require("./routes/commandRoutes");
-const contractRoutes = require("./routes/contractRoutes");
-const cookerServiceRoutes = require("./routes/cookerServiceRoutes");
-const deliveryServiceRoutes = require("./routes/deliveryServiceRoutes");
-const dishIngredientsRoutes = require("./routes/dishIngredientsRoutes");
-const dishRoutes = require("./routes/dishRoutes");
-const employeeRoutes = require("./routes/employeeRoutes");
-const evaluationRoutes = require("./routes/evaluationRoutes");
-const imageRoutes = require("./routes/imageRoutes");
-const ingredientRoutes = require("./routes/ingredientRoutes");
-const inPlaceServiceRoutes = require("./routes/inPlaceServiceRoutes");
-const serviceRoutes = require("./routes/serviceRoutes");
-const shiftRoutes = require("./routes/shiftRoutes");
-const statusRoutes = require("./routes/statusRoutes");
-const supplierRoutes = require("./routes/supplierRoutes");
-const tableRoutes = require("./routes/tableRoutes");
-const waiterRoutes = require("./routes/waiterRoutes");
+const categoryRoutes = require("./routes/entities/categoryRoutes");
+const chefRoutes = require("./routes/entities/chefRoutes");
+const cleanerServiceRoutes = require("./routes/entities/cleanerServiceRoutes");
+const cleaningRoutes = require("./routes/entities/cleaningRoutes");
+const clientRoutes = require("./routes/entities/clientRoutes");
+const commandRoutes = require("./routes/entities/commandRoutes");
+const contractRoutes = require("./routes/entities/contractRoutes");
+const cookerServiceRoutes = require("./routes/entities/cookerServiceRoutes");
+const deliveryServiceRoutes = require("./routes/entities/deliveryServiceRoutes");
+const dishIngredientsRoutes = require("./routes/entities/dishIngredientsRoutes");
+const dishRoutes = require("./routes/entities/dishRoutes");
+const employeeRoutes = require("./routes/entities/employeeRoutes");
+const evaluationRoutes = require("./routes/entities/evaluationRoutes");
+const imageRoutes = require("./routes/entities/imageRoutes");
+const ingredientRoutes = require("./routes/entities/ingredientRoutes");
+const inPlaceServiceRoutes = require("./routes/entities/inPlaceServiceRoutes");
+const serviceRoutes = require("./routes/entities/serviceRoutes");
+const shiftRoutes = require("./routes/entities/shiftRoutes");
+const statusRoutes = require("./routes/entities/statusRoutes");
+const supplierRoutes = require("./routes/entities/supplierRoutes");
+const tableRoutes = require("./routes/entities/tableRoutes");
+const waiterRoutes = require("./routes/entities/waiterRoutes");
+
+const chefAuthRoutes = require("./routes/authentication/chefRoutes"); 
+const clientAuthRoutes = require("./routes/authentication/clientRoutes"); 
+const employeeAuthRoutes = require("./routes/authentication/employeeRoutes"); 
+const waiterAuthRoutes = require("./routes/authentication/waiterRoutes"); 
 
 app.use("/restaurant/categories", categoryRoutes);
 app.use("/restaurant/chefs", chefRoutes);
@@ -60,6 +65,12 @@ app.use("/restaurant/statuses", statusRoutes);
 app.use("/restaurant/suppliers", supplierRoutes);
 app.use("/restaurant/tables", tableRoutes);
 app.use("/restaurant/waiters", waiterRoutes);
+
+app.use("/restaurant/auth/chefs", chefAuthRoutes);
+app.use("/restaurant/auth/clients", clientAuthRoutes);
+app.use("/restaurant/auth/employees", employeeAuthRoutes);
+app.use("/restaurant/auth/waiters", waiterAuthRoutes);
+
 
 const PORT = process.env.DB_PORT || 3000;
 
