@@ -3,45 +3,36 @@ const {Ingredient} = require("../models");
 const ingedientController = {
     addIngredient :async (req, res) => {
         try {
-            const ingredient = await Ingredient.create(req.body);
-            res.status(201).json(ingredient);
+            const { name, stock, price, stockUnits } = req.body;
+            if (!name || !stock || !price || !stockUnits) {
+                return res.status(400).json({ message: "All fields are required" });
+            }
+            const newIngredient = await Ingredient.create({ name, stock, price, stockUnits });
+            res.status(201).json(newIngredient);
         } catch (error) {
             res.status(400).json({ error: error.message });
         }
     },
 
-    updateSupplier :async (req, res) => {
+    
+    updateIngredient :async (req, res) => {
         try {
-            const { id } = req.params;
-            const { supplierId } = req.body;
-            await Ingredient.update({ supplierId }, { where: { id } });
-            res.status(200).json({ message: "Ingredient supplier updated" });
+            const { name, stock, price, stockUnits } = req.body;
+            const ingredient = await Ingredient.findByPk(req.params.id);
+            if (!ingredient) return res.status(404).json({ message: "Ingredient not found" });
+            
+            if(name)ingredient.name = name || ingredient.name;
+            if(stock)ingredient.stock = stock || ingredient.stock;
+            if(price)ingredient.price = price || ingredient.price;
+            if(stockUnits)ingredient.stockUnits = stockUnits || ingredient.stockUnits;
+            
+            await ingredient.save();
+            res.json(ingredient);
         } catch (error) {
             res.status(400).json({ error: error.message });
         }
     },
 
-    updateStock :async (req, res) => {
-        try {
-            const { id } = req.params;
-            const { stock } = req.body;
-            await Ingredient.update({ stock }, { where: { id } });
-            res.status(200).json({ message: "Ingredient stock updated" });
-        } catch (error) {
-            res.status(400).json({ error: error.message });
-        }
-    },
-
-    updatePrice :async (req, res) => {
-        try {
-            const { id } = req.params;
-            const { price } = req.body;
-            await Ingredient.update({ price }, { where: { id } });
-            res.status(200).json({ message: "Ingredient price updated" });
-        } catch (error) {
-            res.status(400).json({ error: error.message });
-        }
-    },
     getAllIngredients: async (req, res) => {
         try {
             const ingredients = await Ingredient.findAll();
