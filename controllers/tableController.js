@@ -32,6 +32,10 @@ const tableController = {
         try {
             const { vacancy, tableNumber } = req.body;
 
+            if (vacancy === undefined || tableNumber === undefined) {
+                return res.status(400).json({ error: "Vacancy and table number are required" });
+            }
+
             const newTable = await Table.create({
                 vacancy,
                 tableNumber

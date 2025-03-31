@@ -14,9 +14,14 @@ const statusController = {
         try {
             const { description } = req.body;
 
+            if (!description) {
+                return res.status(400).json({ error: "Description is required" });
+            }
+
             const newStatus = await Status.create({
                 description
             });
+
 
             res.status(201).json(newStatus);
         } catch (error) {

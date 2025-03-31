@@ -1,4 +1,4 @@
-const { Contract } = require('../models');
+const { Contract, Shift, Employee } = require('../models');
 
 const contractController = {
     getAllContracts:async(req, res) => {

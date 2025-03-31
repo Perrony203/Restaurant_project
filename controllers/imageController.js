@@ -14,10 +14,10 @@ const imageController = {
 
     createImage :async (req, res) => {
         try {
-            const { clientId, image } = req.body;
+            const { dishId, image } = req.body;
 
             const newImage = await Image.create({
-                clientId,
+                dishId,
                 image
             });
 

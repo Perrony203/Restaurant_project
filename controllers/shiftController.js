@@ -32,6 +32,9 @@ const shiftController = {
             if (!datetimeOpen) {
                 return res.status(400).json({ message: 'El campo datetimeOpen es obligatorio' });
             }
+            if (!datetimeClose) {
+                return res.status(400).json({ message: 'El campo datetimeClose es obligatorio' });
+            }
 
             const newShift = await Shift.create({ datetimeOpen, datetimeClose });
 
