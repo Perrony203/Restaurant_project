@@ -30,7 +30,28 @@ const cookerServiceController = {
     },
     create:async(req, res) => {
         try {
-            const newCookerService = await CookerService.create(req.body);
+            
+
+            const { serviceId, cookerId } = req.body;
+            if (!serviceId || !cookerId) {
+                return res.status(400).json({ message: 'Los campos serviceId y cookerId son obligatorios' });
+            }
+            if (!/^[0-9]+$/.test(serviceId)) {
+                return res.status(400).json({ message: 'El campo serviceId debe ser un número' });
+            }
+            if (!/^[0-9]+$/.test(cookerId)) {
+                return res.status(400).json({ message: 'El campo cookerId debe ser un número' });
+            }
+            if (Employee.getEmployeebyId(cookerId) === null) {
+                return res.status(404).json({ message: 'El empleado no existe' });
+            }
+            if (Service.getServicebyId(serviceId) === null) {
+                return res.status(404).json({ message: 'El servicio no existe' });
+            }
+            
+
+
+            const newCookerService = await CookerService.create({ serviceId, cookerId });
             res.status(201).json(newCookerService);
         } catch (error) {
             res.status(500).json({ error: error.message });

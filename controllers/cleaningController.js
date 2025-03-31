@@ -17,6 +17,14 @@ const cleaningController = {
             if (!employeeId) {
                 return res.status(400).json({ message: 'El campo employeeId es obligatorio' });
             }
+            if (!/^[0-9]+$/.test(employeeId)) {
+                return res.status(400).json({ message: 'El campo employeeId debe ser un número' });
+            }
+            if (Employee.getEmployeebyId(employeeId) === null) {
+                return res.status(404).json({ message: 'El empleado no existe' });
+            }
+
+            
 
             const newCleaning = await Cleaning.create({ employeeId });
 
