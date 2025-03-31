@@ -12,9 +12,13 @@ module.exports = (sequelize) => {
   Chef.init(
     {
       employeeId: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      primaryKey: true,
+        type: DataTypes.STRING,
+        allowNull: false,
+        primaryKey: true,
+    },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
     }
     },
     {
@@ -22,7 +26,8 @@ module.exports = (sequelize) => {
       modelName: "Chef",
       tableName: "chefs",
       timestamps: false,
-    }
+    },
+    
   );
 
   return Chef;
