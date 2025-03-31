@@ -1,4 +1,4 @@
-const Shift = require('../models/Shift');
+const {Shift} = require('../models');
 
 const shiftController = {
     // Obtener todos los turnos

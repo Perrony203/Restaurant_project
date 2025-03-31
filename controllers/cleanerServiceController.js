@@ -1,4 +1,4 @@
-const CleanerService = require("../models/cleanerService");
+const {CleanerService, Employee, Service} = require("../models");
 
 // Controller for CleanerService
 const cleanerServiceController = {
@@ -30,8 +30,22 @@ const cleanerServiceController = {
     },
     create:async(req, res) => {
         try {
-            const newCleanerService = await CleanerService.create(req.body);
-            res.status(201).json(newCleanerService);
+            
+            const { employeeId, serviceId } = req.body;
+            const employee = await Employee.findByPk(employeeId);
+            const service = await Service.findByPk(serviceId);
+            if (!employee) {
+                return res.status(404).json({ error: "Employee not found" });
+            }
+            if (!service) {
+                return res.status(404).json({ error: "Service not found" });
+            }
+            const cleanerService = await CleanerService.create({
+                employeeId: employeeId,
+                serviceId: serviceId,
+            });
+            return res.status(201).json(cleanerService);
+
         } catch (error) {
             res.status(500).json({ error: error.message });
         }

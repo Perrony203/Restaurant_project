@@ -559,4 +559,3 @@ module.exports = {
     await queryInterface.dropTable("cookerServices");
   },
 };
-

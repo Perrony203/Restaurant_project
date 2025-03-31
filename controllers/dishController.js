@@ -1,4 +1,4 @@
-const Dish = require("../models/dish");
+const {Dish, Category} = require("../models");
 
 const dishController = {
 
@@ -23,11 +23,22 @@ const dishController = {
 
     createDish :async (req, res) => {
         try {
-            const { name, description, preparationTime, categoryId } = req.body;
+            const { name, description, price, preparationTime, categoryName } = req.body;
+
+            const category = await Category.findOne({ where: { name: categoryName } });
+            
+            if (!category) {
+                return res.status(404).json({ error: `Categoría "${categoryName}" no encontrada.` });
+            }
+    
+            const categoryId = category.categoryId;
+
+            console.log(categoryId);
 
             const dish = await Dish.create({
                 name,
                 description,
+                price,
                 preparationTime,
                 categoryId
             });

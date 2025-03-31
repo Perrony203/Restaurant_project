@@ -1,5 +1,5 @@
 // controllers/imageController.js
-const Image = require("../models/image");
+const {Image} = require("../models");
 
 const imageController = {
     getImage :async (req, res) => {

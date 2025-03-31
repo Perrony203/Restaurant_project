@@ -1,4 +1,4 @@
-const DeliveryService = require("../models/serviceDelivery");
+const {DeliveryService} = require("../models");
 
     const deliveryServiceController = {
     getDeliveryServices :async (req, res) => {

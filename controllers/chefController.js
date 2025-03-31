@@ -1,4 +1,4 @@
-const { Chef } = require('../models');
+const { Chef, Employee } = require('../models');
 
     const chefController = {
     getChefs :async (req, res) => {
@@ -9,13 +9,19 @@ const { Chef } = require('../models');
             res.status(500).json({ error: error.message });
         }
     },
-
+    // Obtener chefs por ID de empleado (funciona bien)
     createChef :async (req, res) => {
         try {
             const { employeeId } = req.body;
 
             if (!employeeId) {
                 return res.status(400).json({ message: 'El campo employeeId es obligatorio' });
+            }
+            if (!/^[0-9]+$/.test(employeeId)) {
+                return res.status(400).json({ message: 'El campo employeeId debe ser un número' });
+            }
+            if (Employee.getEmployeebyId(employeeId) === null) {
+                return res.status(404).json({ message: 'El empleado no existe' });
             }
 
             const newChef = await Chef.create({ employeeId });

@@ -1,4 +1,4 @@
-const CookerService = require("../models");
+const {CookerService} = require("../models");
 
 
 const cookerServiceController = {

@@ -1,4 +1,4 @@
-const DishIngredient = require("../models/dishIngredient");
+const {DishIngredient} = require("../models");
 
     const dishIngredientController = {
     createDishIngredient :async (req, res) => {

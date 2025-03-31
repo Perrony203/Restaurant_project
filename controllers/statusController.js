@@ -1,4 +1,4 @@
-const Status = require("../models/status");
+const {Status} = require("../models");
 
 const statusController = {
     getStatuses :async (req, res) => {

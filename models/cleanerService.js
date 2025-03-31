@@ -11,6 +11,17 @@ module.exports = (sequelize) => {
 
   CleanerService.init(
     {
+      serviceId: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+        primaryKey: true,
+      },
+      employeeId: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        primaryKey: true,
+      },
     },
     {
       sequelize,

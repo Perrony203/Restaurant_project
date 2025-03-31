@@ -1,4 +1,4 @@
-const Category = require("../models/category");
+const {Category} = require("../models");
 
 const categoryController = {
     getCategory :async (req, res) => {
@@ -10,7 +10,7 @@ const categoryController = {
             res.status(400).json({ error: error.message });
         }
     },
-
+//funciona bien
     createCategory :async (req, res) => {
         try {
             const { name } = req.body;
@@ -20,10 +20,10 @@ const categoryController = {
             res.status(400).json({ error: error.message });
         }
     },
-
+//que se borre con el nombre de la categoria
     deleteCategory :async (req, res) => {
         try {
-            await Category.destroy({ where: { id: req.params.id } });
+            await Category.destroy({ where: { name: req.params.name } });
             res.status(200).json({ message: "Category deleted" });
         } catch (error) {
             res.status(400).json({ error: error.message });

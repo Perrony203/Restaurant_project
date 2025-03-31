@@ -1,4 +1,4 @@
-const Command = require("../models/command");
+const {Command} = require("../models");
 
 const commandController = {
     getCommands :async (req, res) => {

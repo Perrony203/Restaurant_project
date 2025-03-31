@@ -1,4 +1,4 @@
-const Evaluation = require("../models/evaluation");
+const {Evaluation} = require("../models");
 
 const evaluationController = {
     getEvaluations :async (req, res) => {

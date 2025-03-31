@@ -1,4 +1,4 @@
-const InPlaceService = require("../models/serviceInPlace");
+const {InPlaceService} = require("../models");
 
 const inPlaceServiceController = {
     getInPlaceServices :async (req, res) => {
