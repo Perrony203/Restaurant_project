@@ -1,4 +1,5 @@
 const {Client} = require("../../models");
+const bcrypt = require('bcrypt');
 
 const clientController = {
     createClient: async (req, res) => {
@@ -11,6 +12,7 @@ const clientController = {
             idType,
             name,
             phoneNumber,
+            active:true,
             password:hashConstraseña
           });
       
@@ -61,10 +63,7 @@ const clientController = {
 
     updateClient :async (req, res) => {
         try {
-            const { id } = req.params;
-            
-            await Client.update(req.body, { where: { id } });
-            res.status(200).json({ message: "Client updated" });
+            const { id } = req.params; 
 
             const { clientId, idType, name, phoneNumber } = req.body;
             const client = await Client.findByPk(req.params.id);
@@ -77,7 +76,7 @@ const clientController = {
             if(phoneNumber)client.phoneNumber = phoneNumber || client.phoneNumber;
             
             await client.save();
-            res.json(client);
+            res.status(200).json({ message: "Client updated" });
 
         } catch (error) {
             res.status(400).json({ error: error.message });
@@ -85,9 +84,16 @@ const clientController = {
     },
 
     deleteClient :async (req, res) => {
-        try {
-            await Client.destroy({ where: { id: req.params.id } });
-            res.status(200).json({ message: "Client deleted" });
+        try {            
+            const client = await Client.findByPk(req.params.id);
+            
+            if (!client) return res.status(404).json({ message: "Client not found" });
+        
+            client.active = false
+            
+            await client.save();
+            res.status(200).json(client);
+
         } catch (error) {
             res.status(400).json({ error: error.message });
         }

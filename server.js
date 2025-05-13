@@ -72,7 +72,7 @@ app.use("/restaurant/auth/employees", employeeAuthRoutes);
 app.use("/restaurant/auth/waiters", waiterAuthRoutes);
 
 
-const PORT = process.env.DB_PORT || 3000;
+const PORT = 3000;
 
 app.listen(PORT, ()=>{
     console.log(`Servidor corriendo en http://localhost:${PORT}`);

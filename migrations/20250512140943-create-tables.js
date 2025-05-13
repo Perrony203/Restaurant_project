@@ -62,6 +62,11 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
+      active: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
+      },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -277,6 +282,11 @@ module.exports = {
       preparationTime: {
         type: Sequelize.INTEGER,
         allowNull: false,
+      },
+      active: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
       },
       updatedAt: {
         type: Sequelize.DATE,

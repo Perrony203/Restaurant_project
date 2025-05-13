@@ -6,7 +6,7 @@ const Controller = require("../../controllers/entities/clientController");
 router.get("/", authService, Controller.getClients);
 router.get("/:id", authService, Controller.getClientById);
 router.put("/", authService, Controller.updateClient);
-router.post("/", authService, Controller.createClient);
-router.delete("/", authService, Controller.deleteClient);
+router.post("/", Controller.createClient);
+router.delete("/:id", authService, Controller.deleteClient);
 
 module.exports = router;

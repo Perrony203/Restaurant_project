@@ -4,7 +4,7 @@ const dishController = {
 
     getAllDishes: async (req, res) => {
         try {
-            const dishes = await Dish.findAll();
+            const dishes = await Dish.findAll({where: { active: true}});
             res.status(200).json(dishes);
         } catch (error) {
             res.status(400).json({ error: error.message });
@@ -24,7 +24,7 @@ const dishController = {
     createDish :async (req, res) => {
         try {
             const { name, description, price, preparationTime, categoryName } = req.body;
-
+            console.log(categoryName);
             const category = await Category.findOne({ where: { name: categoryName } });
             
             if (!category) {
@@ -51,8 +51,18 @@ const dishController = {
 
     updateDish :async (req, res) => {
         try {
-            const { id } = req.params;
-            await Dish.update(req.body, { where: { id } });
+
+            const dish = await Dish.findByPk(req.params.id);            
+            if (!dish) return res.status(404).json({ message: "Dish not found" });
+            
+            const { name, description, price, preparationTime } = req.body;
+
+            if(name)dish.name = name || dish.name;
+            if(description)dish.description = description || dish.description;
+            if(price)dish.price = price || dish.price;
+            if(preparationTime)dish.preparationTime = preparationTime || dish.preparationTime;
+            
+            await dish.save();
             res.status(200).json({ message: "Dish updated" });
         } catch (error) {
             res.status(400).json({ error: error.message });
@@ -60,9 +70,16 @@ const dishController = {
     },
 
     deleteDish :async (req, res) => {
-        try {
-            await Dish.destroy({ where: { id: req.params.id } });
-            res.status(200).json({ message: "Dish deleted" });
+        try {            
+            const dish = await Dish.findByPk(req.params.id);
+            
+            if (!dish) return res.status(404).json({ message: "Dish not found" });
+        
+            dish.active = false
+            
+            await dish.save();
+            res.status(200).json(dish);
+
         } catch (error) {
             res.status(400).json({ error: error.message });
         }
