@@ -7,7 +7,7 @@ router.get("/:id", authService, Controller.getIngredientById);
 router.get("/", authService, Controller.getAllIngredients);
 router.put("/:id", authService, Controller.updateIngredient);
 router.post("/", authService, Controller.addIngredient);
-router.delete("/:id", authService, Controller.deleteIngredient);
+router.post("/:id",Controller.deleteIngredient);
 
 
 module.exports = router;
