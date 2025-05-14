@@ -3,11 +3,11 @@ const {Ingredient} = require("../../models");
 const ingedientController = {
     addIngredient :async (req, res) => {
         try {
-            const { name, stock, price, stockUnits } = req.body;
-            if (!name || !stock || !price || !stockUnits) {
+            const { name, stock, price, stockUnits, supplierId } = req.body;
+            if (!name || !stock || !price || !stockUnits || !supplierId) {
                 return res.status(400).json({ message: "All fields are required" });
             }
-            const newIngredient = await Ingredient.create({ name, stock, price, stockUnits });
+            const newIngredient = await Ingredient.create({ name, stock, price, stockUnits, supplierId});
             res.status(201).json(newIngredient);
         } catch (error) {
             res.status(400).json({ error: error.message });

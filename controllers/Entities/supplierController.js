@@ -48,7 +48,16 @@ const supplierController = {
         }
     },
     
-    
+    getSupplierByName:async (req, res) => {
+        try {
+            const supplier = await Supplier.findAll({ where: { name: req.params.name }});
+            if (!supplier) return res.status(404).json({ message: "Supplier not found" });
+
+            res.json(supplier);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+    },
 
     getSupplierById :async (req, res) => {
         try {

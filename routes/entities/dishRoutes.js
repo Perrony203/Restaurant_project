@@ -5,6 +5,7 @@ const Controller = require("../../controllers/entities/dishController");
 
 router.get("/:id", authService, Controller.getDishById);
 router.get("/", authService, Controller.getAllDishes);
+router.get("/supplier/:id", authService, Controller.getSupplierById);
 router.put("/:id", authService, Controller.updateDish);
 router.post("/", authService, Controller.createDish);
 router.delete("/:id", authService, Controller.deleteDish);

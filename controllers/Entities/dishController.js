@@ -1,10 +1,10 @@
-const {Dish, Category} = require("../../models");
+const {Dish, Category, Supplier} = require("../../models");
 
 const dishController = {
 
     getAllDishes: async (req, res) => {
         try {
-            const dishes = await Dish.findAll({where: { active: true}});
+            const dishes = await Dish.findAll();
             res.status(200).json(dishes);
         } catch (error) {
             res.status(400).json({ error: error.message });
@@ -20,6 +20,22 @@ const dishController = {
             res.status(400).json({ error: error.message });
         }
     },
+
+    getSupplierById :async (req, res) => {
+        try {
+            const dish = await Dish.findByPk(req.params.id);
+            if (!dish) return res.status(404).json({ message: "Dish not found" });
+
+            supplierId = dish.supplierId;
+            const supplier = await Supplier.findByPk(supplierId);
+
+            if (!supplier) return res.status(404).json({ message: "Supplier not found" });
+
+            res.json(supplier);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+    },    
 
     createDish :async (req, res) => {
         try {
@@ -74,8 +90,8 @@ const dishController = {
             const dish = await Dish.findByPk(req.params.id);
             
             if (!dish) return res.status(404).json({ message: "Dish not found" });
-        
-            dish.active = false
+            
+            dish.active = !dish.active;
             
             await dish.save();
             res.status(200).json(dish);

@@ -3,7 +3,7 @@ const {Category} = require("../../models");
 const categoryController = {
     getCategory :async (req, res) => {
         try {
-            const category = await Category.findByPk(req.params.name);
+            const category = await Category.findByPk(req.params.id);
             if (!category) return res.status(404).json({ message: "Category not found" });
             res.json(category);
         } catch (error) {
