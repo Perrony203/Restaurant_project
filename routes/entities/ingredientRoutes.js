@@ -3,10 +3,11 @@ const router = express.Router();
 const authService = require("../../middleware/authMiddleware");
 const Controller = require("../../controllers/entities/ingredientController");
 
-router.get("/:id", Controller.getIngredientById);
-router.get("/", Controller.getAllIngredients);
-router.get("/supplier/:supplierId", authService, Controller.getBySupplier);
+router.get("/:id", authService, Controller.getIngredientById);
+router.get("/", authService, Controller.getAllIngredients);
+router.put("/:id", authService, Controller.updateIngredient);
 router.post("/", authService, Controller.addIngredient);
-router.delete("/", authService, Controller.deleteIngredient);
+router.delete("/:id", authService, Controller.deleteIngredient);
+
 
 module.exports = router;

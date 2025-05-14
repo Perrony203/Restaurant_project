@@ -1,4 +1,4 @@
-const {Ingredient} = require("../../models");
+const {Ingredient, Supplier} = require("../../models");
 
 const ingedientController = {
     addIngredient :async (req, res) => {
@@ -17,7 +17,7 @@ const ingedientController = {
     
     updateIngredient :async (req, res) => {
         try {
-            const { name, stock, price, stockUnits } = req.body;
+            const { name, stock, price, stockUnits, supplierId } = req.body;
             const ingredient = await Ingredient.findByPk(req.params.id);
             if (!ingredient) return res.status(404).json({ message: "Ingredient not found" });
             
@@ -25,6 +25,7 @@ const ingedientController = {
             if(stock)ingredient.stock = stock || ingredient.stock;
             if(price)ingredient.price = price || ingredient.price;
             if(stockUnits)ingredient.stockUnits = stockUnits || ingredient.stockUnits;
+            if(supplierId)ingredient.supplierId = supplierId || ingredient.supplierId;
             
             await ingredient.save();
             res.json(ingredient);
@@ -54,8 +55,9 @@ const ingedientController = {
 
     getBySupplier :async (req, res) => {
         try {
-            const ingredients = await Ingredient.findAll({ where: { supplierId: req.params.supplierId } });
-            res.json(ingredients);
+            const supplier =  await Supplier.findAll({where: {supplierId: ingredient.supplierId}});
+            if (!supplier) return res.status(404).json({ message: "Supplier not found" });
+            res.json(supplier);
         } catch (error) {
             res.status(400).json({ error: error.message });
         }
@@ -63,7 +65,13 @@ const ingedientController = {
 
     deleteIngredient :async (req, res) => {
         try {
-            await Ingredient.destroy({ where: { id: req.params.id } });
+            console.log(req.params.id)
+            const ingredient = await Ingredient.findByPk(req.params.id);
+            if(!ingredient) return res.status(404).json({ message: "Ingredient not found" });
+
+            ingredient.stock = 0;
+
+            await ingredient.save();
             res.status(200).json({ message: "Ingredient deleted" });
         } catch (error) {
             res.status(400).json({ error: error.message });
