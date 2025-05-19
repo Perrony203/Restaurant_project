@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const authService = require("../../middleware/authMiddleware");
-const Controller = require("../../controllers/entities/supplierController");
+const Controller = require("../../controllers/Entities/supplierController");
 
 router.get("/", authService, Controller.getAllSuppliers);
 router.get("/name/:name", authService, Controller.getSupplierByName);

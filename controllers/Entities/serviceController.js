@@ -30,24 +30,24 @@ const serviceController = {
         }
     },
 
-
-    updateServiceCloseDate :async (req, res) => {
+    updateService :async (req, res) => {
         try {
             const { id } = req.params;
-            const { closeDate } = req.body;
-            await Service.update({ closeDate }, { where: { id } });
-            res.status(200).json({ message: "Service close date updated" });
+            const [updated] = await Service.update(req.body, { where: { serviceId: id } });
+            updated ? res.status(200).json({ message: 'Service updated' }) : res.status(404).json({ error: 'Service not found' });
         } catch (error) {
             res.status(400).json({ error: error.message });
         }
     },
 
-    updateServiceBill :async (req, res) => {
+    getServiceById :async (req, res) => {
         try {
             const { id } = req.params;
-            const { bill } = req.body;
-            await Service.update({ bill }, { where: { id } });
-            res.status(200).json({ message: "Service invoice updated" });
+            const service = await Service.findByPk(id);
+            if (!service) {
+                return res.status(404).json({ error: 'Service not found' });
+            }
+            res.status(200).json(service);
         } catch (error) {
             res.status(400).json({ error: error.message });
         }
@@ -55,7 +55,7 @@ const serviceController = {
 
     deleteService :async (req, res) => {
         try {
-            await Service.destroy({ where: { id: req.params.id } });
+            await Service.destroy({ where: { serviceId: req.params.id } });
             res.status(200).json({ message: "Service deleted" });
         } catch (error) {
             res.status(400).json({ error: error.message });

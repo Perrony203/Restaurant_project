@@ -4,9 +4,9 @@ const authService = require("../../middleware/authMiddleware");
 const Controller = require("../../controllers/entities/serviceController");
 
 router.get("/", authService, Controller.getServices);
-router.put("/close/:id", authService, Controller.updateServiceCloseDate);
-router.put("/bill", authService, Controller.updateServiceBill);
+router.get("/:id", authService, Controller.getServiceById);
+router.put("/:id", authService, Controller.updateService);
 router.post("/", authService, Controller.createService);
-router.delete("/", authService, Controller.deleteService);
+router.delete("/:id", authService, Controller.deleteService);
 
 module.exports = router;

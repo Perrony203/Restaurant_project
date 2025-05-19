@@ -1,4 +1,5 @@
 const { Employee } = require('../../models');
+const bcrypt = require('bcrypt');
 
 const employeeController = {
     getAllEmployees :async (req, res) => {
@@ -21,20 +22,16 @@ const employeeController = {
     },
     getEmployeeById: async (req, res) => {
         try {
-          const { employeeId } = req.params;
-      
-          const employee = await Employee.findByPk(employeeId, {
-            include: [
-              { all: true, nested: true }
-            ],
-          });
-      
+          const { id } = req.params;
+          // Solo busca el empleado, sin incluir relaciones
+          const employee = await Employee.findByPk(id);
+
           if (!employee) {
             return res.status(404).json({
               message: "Empleado no encontrado",
             });
           }
-      
+
           return res.status(200).json(employee);
         } catch (error) {
           console.error("Error al obtener empleado:", error);
@@ -63,7 +60,7 @@ const employeeController = {
     updateEmployee :async (req, res) => {
         try {
             const { id } = req.params;
-            const [updated] = await Employee.update(req.body, { where: { id } });
+            const [updated] = await Employee.update(req.body, { where: {employeeId: id } });
             updated ? res.json({ message: 'Employee updated' }) : res.status(404).json({ error: 'Employee not found' });
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -73,7 +70,7 @@ const employeeController = {
     deleteEmployee :async (req, res) => {
         try {
             const { id } = req.params;
-            const deleted = await Employee.destroy({ where: { id } });
+            const deleted = await Employee.destroy({ where: { employeeId: id } });
             deleted ? res.json({ message: 'Employee deleted' }) : res.status(404).json({ error: 'Employee not found' });
         } catch (error) {
             res.status(500).json({ error: error.message });
